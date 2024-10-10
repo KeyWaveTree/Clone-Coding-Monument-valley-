@@ -24,8 +24,7 @@ public class LoadClickEvent : MonoBehaviour
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             isHit = Physics.Raycast(ray,out RaycastHit loadHit, Mathf.Infinity, layerMask);//origin: 쏘는 위치, 원점(시작점)에서부터의 방향, 최대 거리, layer
             
-            //if(isHit) Debug.Log("name : " + loadHit.collider.name); adjance area가 출력 
-
+            //if(isHit) Debug.Log("name : " + loadHit.collider.name); adjancency area가 출력 
             if (isHit && loadHit.collider.tag == "PathPoint")
             {
             

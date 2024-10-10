@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <tip>
@@ -58,9 +59,15 @@ public class GameManager : MonoBehaviour
         player.transform.position = pathPoints[0].position + empty;
         empty.Set(0f, 0f, 0f);
 
+        //모든 pathPoint 오브젝트안에 Addcomponent를 해서 Walkable 삽입
+        foreach(Transform element in pathPoints)
+        {
+            //Walkable을 넣으면 바로 실행(단 start가 있을시)
+            element.AddComponent<Walkable>();
+        }
     }
 
-    // Update is called once per frame
+    //플레이어 움직이는 코드 
     void MovePlayer()
     {
         //현재 저장된 clickPoint와 현재 카메라에서 클릭한 GetMouseHitTransform을 한 Transfrom이 같다면 return 
@@ -76,9 +83,9 @@ public class GameManager : MonoBehaviour
         player.transform.position = clickPoint.position + empty;
         empty.Set(0f, 0f, 0f);
     }
+
     void FixedUpdate()
     {
-        MovePlayer();
-        
+        MovePlayer();    
     }
 }
