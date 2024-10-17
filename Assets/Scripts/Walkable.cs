@@ -34,7 +34,7 @@ public class Walkable : MonoBehaviour
 
         //layermask 설정 
         layerMask = (1 << LayerMask.NameToLayer("Path")) |
-                    (1 << LayerMask.NameToLayer("Top"))  |
+                    (1 << LayerMask.NameToLayer("Top ")) |
                     (1 << LayerMask.NameToLayer("SenceArea"));
         //Raycast의 결과를 담을 수 있는 배열 생성
         isHits = new bool[cardinalPoint];//상하좌우 4방향이니 4개 생성 
@@ -61,7 +61,7 @@ public class Walkable : MonoBehaviour
     void AdjancencyPathFindToRay()
     {
         int index;
-
+        int hitCount = 0;//현재 이 스크립트를 가지고 있는 오브젝트에서 발사한 ray를 맞은 오브젝트 개수 
         for(index=0;index < cardinalPoint;index++)
         {
 
@@ -75,15 +75,23 @@ public class Walkable : MonoBehaviour
                                            maxDist, 
                                            layerMask);
 
+            //만약 지정된 Object가 맞지 않았다면 
             if (!isHits[index]) continue;
+            //맞았으면 오브젝트 개수 1개 증가 
+            hitCount++;
+            
             //맞은 오브젝트가 원본이 아니라는 뜻
             //원본이 아니라면 현재 오브젝트의 부모를 가리켜라 
-            //destinations[index] = destinations[index]; -> 굳이 안해도 될 것같음. 이유: 어짜피 충돌 될것 같아서 
+            
             directionPath[index] = destinations[index].transform;
-            Debug.Log(index + " 번호에 " + destinations[index].transform+"삽입");
+            //Debug.Log(index + " 번호에 " + destinations[index].transform+"삽입"); -> 삽입 잘 됨. 
 
+        }
+        //만약 현재 오브젝트에서 Ray를 맞은 노드 개수가 1개라면 경로가 변경될 수 있는 길 지점이다.
+        //bridge의 각도를 임의로 변경하여 Walkable코드들을 AdjancencyPathFindToRay()한번 더하고 경로가 변경될 지점을 찾은 다음 함수의 인자값으로 전달해준다. 
+        if (hitCount == 1)
+        {
             
         }
-
     }
 }
