@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     private Vector3 empty; //임의의 벡터 
     private List<Transform> pathPoints;//모든 좌표의 경로 
 
-    void Start()
+    void Awake()
     {
         //1.준비 부분
         //1- 정의 부분
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
         {
             //Walkable을 넣으면 바로 실행(단 start가 있을시)
             element.AddComponent<Walkable>();
+
         }
     }
 

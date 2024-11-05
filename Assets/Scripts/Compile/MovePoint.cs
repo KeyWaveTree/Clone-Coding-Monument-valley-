@@ -22,6 +22,7 @@ public class MovePoint : MonoBehaviour
         return 1;
     }
 
+    //哪颇老 角青 可记
     [ContextMenu("Find All Move point")]
     void FindAllMovePoint()
     {

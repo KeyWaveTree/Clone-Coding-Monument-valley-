@@ -53,8 +53,8 @@ public class LoadClickEvent : MonoBehaviour
         //먼저 기둥 터치를 안했다면 false로 만든다. 
         if (Input.GetMouseButtonUp(0))
         {
-            isValveOneThouch = false;
             AutoSetRotation();
+            isValveOneThouch = false;
         }
 
         //마우스 좌 클릭을 누르지 않았을때   
@@ -95,6 +95,9 @@ public class LoadClickEvent : MonoBehaviour
 
     void AutoSetRotation()
     {
+        //만약 지금 false인 상태로 버튼을 눌렀다면 실행 안함. 
+        if (!isValveOneThouch) return;
+
         int index = 0;
         //valve.rotation.y-> 4차원 rotation 형태 -> 오일러 앵글로 바꿔야 함. 
         float valveAngle = valve.eulerAngles.y;
